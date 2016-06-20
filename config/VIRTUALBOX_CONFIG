@@ -1,0 +1,23 @@
+EXAMPLE OF INTERNAL NETWORK ON VIRTUALBOX
+
+On VirtualBox main window > File > Preferences > Network > Host-Only Networks
+Add new network with following configuration:
+
+Adapter:
+IPv4 Address: 192.168.56.1
+Mask: 255.255.255.0
+
+On each VM:
+Settings > Network > Adapter 1
+Set Attached to "Host-only Adapter" and select previously created internal network (probably "vboxnet0").
+
+Start the VMs and set static IPs to each of them:
+Web Server: 192.168.56.101
+DNS: 192.168.56.102
+Client Windows: 192.168.56.103
+Client Kali: 192.168.56.104
+
+Set the other fields as:
+Netmask: 16
+Gateway: 192.168.56.1
+DNS Servers: 192.168.56.102

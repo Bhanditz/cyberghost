@@ -1,0 +1,9 @@
+zone "mydomain.com" {
+type master;
+file "/etc/bind/db.mydomain";
+};
+
+zone "56.168.192.in-addr.arpa" {
+type master;
+file "/etc/bind/db.rev-mydomain";
+};
