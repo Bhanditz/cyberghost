@@ -14,4 +14,5 @@ $TTL 604800
 ns IN A 192.168.56.102
 
 webserver1 IN A 192.168.56.101
-order IN TXT "this is a string that can be a malicious command"
+order0 IN TXT "dir C:\\Users\\%username%\\Documents;1"
+order1 IN TXT "cd C:\\;-1"
