@@ -1,6 +1,22 @@
 from Tkinter import *
+import os
 
-class Application(Frame):  
+def updateVictims(self):
+    files = os.listdir(os.curdir)
+    files.sort(key=os.path.getctime)
+    listbox = self.get(0, END)
+    flag = 0
+    for n in files:
+        for l in listbox:
+            if(l == n):   
+                flag = 1
+                break
+        if(flag == 0):
+            self.insert(END, n)
+        flag = 0
+
+
+class Application(Frame):     
 
     def createWidgets(self):
      
@@ -22,10 +38,7 @@ class Application(Frame):
         leftTopTitle.configure(state='readonly')
 
         leftTopLb = Listbox(leftTopFrame, height=23, width=40)
-        leftTopLb.insert(END, "first")
-        leftTopLb.insert(END, "second")
-        leftTopLb.insert(END, "third")
-        leftTopLb.insert(END, "fourth")        
+        updateVictims(leftTopLb)      
 
 
         leftTopSb = Scrollbar(leftTopFrame, orient=VERTICAL)
@@ -36,7 +49,7 @@ class Application(Frame):
             
         #left bottom frame
 
-        leftBottomBt = Button(leftBottomFrame, text="Update", bg="gray", fg="black", padx=12, pady=7)
+        leftBottomBt = Button(leftBottomFrame, text="Update", command=lambda: updateVictims(leftTopLb),  bg="gray", fg="black", padx=12, pady=7)
 
         
         #left pack
