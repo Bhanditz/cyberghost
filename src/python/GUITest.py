@@ -1,6 +1,22 @@
 from Tkinter import *
+import os
 
-class Application(Frame):  
+def updateVictims(self):
+    files = os.listdir(os.curdir)
+    files.sort(key=os.path.getctime)
+    listbox = self.get(0, END)
+    flag = 0
+    for n in files:
+        for l in listbox:
+            if(l == n):   
+                flag = 1
+                break
+        if(flag == 0):
+            self.insert(END, n)
+        flag = 0
+
+
+class Application(Frame):     
 
     def createWidgets(self):
      
@@ -9,7 +25,7 @@ class Application(Frame):
         leftFrame = Frame(topContainer, padx=30, pady=30)
         centralFrame = Frame(topContainer, padx=30, pady=30)
         rightFrame = Frame(topContainer, padx=30, pady=30)
-        bottomFrame = Frame(bottomContainer, padx=30, pady=30)
+        bottomFrame = Frame(bottomContainer, padx=30, pady=0)
 
         #left side
         #List of victims
@@ -22,10 +38,7 @@ class Application(Frame):
         leftTopTitle.configure(state='readonly')
 
         leftTopLb = Listbox(leftTopFrame, height=23, width=40)
-        leftTopLb.insert(END, "first")
-        leftTopLb.insert(END, "second")
-        leftTopLb.insert(END, "third")
-        leftTopLb.insert(END, "fourth")        
+        updateVictims(leftTopLb)      
 
 
         leftTopSb = Scrollbar(leftTopFrame, orient=VERTICAL)
@@ -36,17 +49,15 @@ class Application(Frame):
             
         #left bottom frame
 
-        leftBottomBt = Button(leftBottomFrame, text="Update", bg="gray", fg="black", padx=12, pady=7)
+        leftBottomBt = Button(leftBottomFrame, text="Update", command=lambda: updateVictims(leftTopLb),  bg="gray", fg="black", padx=12, pady=7)
 
         
         #left pack
         leftTopTitle.pack(side=TOP)
         leftTopLb.pack(side=LEFT)
         leftTopSb.pack(side=LEFT, fill=Y)
-        leftBottomBt.pack(side=LEFT)
-        leftTopFrame.grid(row=0, column=0)
-        leftTopFrame.pack(side=TOP)
-        leftBottomFrame.grid(row=1, column=0)
+        leftBottomBt.pack(side=LEFT)       
+        leftTopFrame.pack(side=TOP)       
         leftBottomFrame.pack(side=BOTTOM)
         leftFrame.pack(side=LEFT)    
 
@@ -84,10 +95,8 @@ class Application(Frame):
         centralTopTitle.pack(side=TOP)
         centralTopLb.pack(side=LEFT)
         centralTopSb.pack(side=LEFT, fill=Y)
-        centralBottomBt.pack(side=LEFT)
-        centralTopFrame.grid(row=0, column=0)
-        centralTopFrame.pack(side=TOP)
-        centralBottomFrame.grid(row=1, column=0)
+        centralBottomBt.pack(side=LEFT)        
+        centralTopFrame.pack(side=TOP)     
         centralBottomFrame.pack(side=BOTTOM)
         centralFrame.pack(side=LEFT)    
 
@@ -136,9 +145,7 @@ class Application(Frame):
         rightTopTitle.pack(side=TOP)        
         rightTopLb.pack(side=LEFT)
         rightTopSb.pack(side=LEFT, fill=Y)        
-        rightTopFrame.grid(row=0, column=0)
         rightTopFrame.pack(side=TOP)
-        rightBottomFrame.grid(row=1, column=0)
         rightBottomFrame.pack(side=BOTTOM)
         rightFrame.pack(side=LEFT)    
 
@@ -146,13 +153,11 @@ class Application(Frame):
 
         #Bottom side
 
-        bottomBottomBt = Button(bottomFrame, text="CHECK MALWARE STATUS", bg="gray", fg="black", padx=12, pady=7)
-        bottomBottomTitle = Entry(bottomFrame, width=35)
-        bottomBottomTitle.insert(0, "STATUS")
-        bottomBottomTitle.configure(state='readonly', fg="red")
+        bottomCredits = Text(bottomFrame, width=35, height=9)
+        bottomCredits.insert(END, " CREDITS\n Alana Ribeiro\n Deividy Negri\n Jesse Jacoby\n Lucas Vaccaro")
+        bottomCredits.configure(state='disabled', fg="black", bg="grey")
 
-        bottomBottomBt.pack(side=TOP)
-        bottomBottomTitle.pack(side=BOTTOM, padx=30, pady=30)
+        bottomCredits.pack(side=BOTTOM, padx=30, pady=10)
         bottomFrame.pack(side=LEFT)
 
 
