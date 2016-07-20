@@ -76,7 +76,7 @@ def open_folder(item):
 def onselect(event, rightTop, resultList):
 	# Do a loop through the file that list the commands
 	w = event.widget
-	sel = w.curselection()[0]
+	sel = w.curselection()
 	value = w.get(sel)
 	mac, ip = value.split(VICTIMS_SEPARATOR)
 	file = open(VICTIMS_HISTORY_DIR + mac)
