@@ -15,8 +15,20 @@ def updateVictims(self):
             self.insert(END, n)
         flag = 0
 
+def onselect(event, rightTop):
+	# Do a loop through the file that list the commands
+	file = open('/home/lucas/t.txt', 'r')
+	w = event.widget
+	sel = w.curselection()
+	for line in file:
+		parts = line.split()
+		if len(parts) > 1:
+			#if parts[0] == sel:
+				#print line that has the first column igual to selected leftTopLb 
+			rightTop.insert(END, parts[1])
 
-class Application(Frame):     
+class Application(Frame):
+	     
 
     def createWidgets(self):
      
@@ -39,7 +51,6 @@ class Application(Frame):
 
         leftTopLb = Listbox(leftTopFrame, height=23, width=40)
         updateVictims(leftTopLb)      
-
 
         leftTopSb = Scrollbar(leftTopFrame, orient=VERTICAL)
 
@@ -116,10 +127,7 @@ class Application(Frame):
         rightTopTitle.configure(state='readonly')
 
         rightTopLb = Listbox(rightTopFrame, height=10, width=40)
-        rightTopLb.insert(END, "cd Documents")
-        rightTopLb.insert(END, "dir")
-        rightTopLb.insert(END, "cd Documents/confidential")
-        rightTopLb.insert(END, "dir")    
+	
 
         rightTopSb = Scrollbar(rightTopFrame, orient=VERTICAL)
 
@@ -149,6 +157,7 @@ class Application(Frame):
         rightBottomFrame.pack(side=BOTTOM)
         rightFrame.pack(side=LEFT)    
 
+	resultSelect = leftTopLb.bind('<<ListboxSelect>>', lambda event: onselect(event, rightTopLb))
 
 
         #Bottom side
