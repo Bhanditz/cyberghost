@@ -73,17 +73,24 @@ def open_folder(item):
     path = VICTIMS_DIR + mac
     subprocess.Popen(["xdg-open", path])
 
-def onselect(event, rightTop):
+def onselect(event, rightTop, resultList):
 	# Do a loop through the file that list the commands
-	file = open('/home/lucas/t.txt', 'r')
 	w = event.widget
-	sel = w.curselection()
+	sel = w.curselection()[0]
+	value = w.get(sel)
+	mac, ip = value.split(VICTIMS_SEPARATOR)
+	file = open(VICTIMS_HISTORY_DIR + mac)
+	files = os.listdir(VICTIMS_DIR + mac)
+	rightTop.delete(0, END)
+	resultList.delete(0, END)
+	#history part
 	for line in file:
-		parts = line.split()
-		if len(parts) > 1:
-			#if parts[0] == sel:
-				#print line that has the first column igual to selected leftTopLb 
-			rightTop.insert(END, parts[1])
+		#print line 
+		rightTop.insert(END, line.rstrip('\n'))
+	#results part
+	for fil in files:
+		resultList.insert(END, fil.rstrip('\n'))
+
 
 class Application(Frame):
 	     
@@ -143,11 +150,7 @@ class Application(Frame):
         centralTopTitle.configure(state='readonly')
 
         centralTopLb = Listbox(centralTopFrame, height=23, width=40)
-        centralTopLb.insert(END, "result.txt")
-        centralTopLb.insert(END, "fbi.jpg")
-        centralTopLb.insert(END, "confidential.doc")
-        centralTopLb.insert(END, "result2.txt")        
-
+             
 
         centralTopSb = Scrollbar(centralTopFrame, orient=VERTICAL)
 
@@ -215,7 +218,7 @@ class Application(Frame):
         rightBottomFrame.pack(side=BOTTOM)
         rightFrame.pack(side=LEFT)    
 
-	resultSelect = leftTopLb.bind('<<ListboxSelect>>', lambda event: onselect(event, rightTopLb))
+	resultSelect = leftTopLb.bind('<<ListboxSelect>>', lambda event: onselect(event, rightTopLb, centralTopLb))
 
 
         #Bottom side
