@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
 #!/usr/bin/env python
 
 from Tkinter import *
 from Crypto.Cipher import AES
 import os
+import base64
 import subprocess
 import datetime
 import time
@@ -91,6 +93,16 @@ def onselect(event, rightTop, resultList):
 	#results part
 	for fil in files:
 		resultList.insert(END, fil.rstrip('\n'))
+
+def encryption(command):    
+    BLOCK_SIZE = 32 
+    PADDING = '{'   
+    pad = lambda s: s + (BLOCK_SIZE - len(s) % BLOCK_SIZE) * PADDING    
+    EncodeAES = lambda c, s: base64.b64encode(c.encrypt(pad(s)))    
+    key = 'g0vwQgZcBCfFNduQCGFVUvudv8gUMPYp'    
+    cipher = AES.new(key)   
+    encoded = EncodeAES(cipher, command)
+    return encoded
 
 
 class Application(Frame):
