@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from Tkinter import *
+from Crypto.Cipher import AES
 import os
 import subprocess
 import datetime
@@ -125,7 +126,7 @@ class Application(Frame):
             
         #left bottom frame
 
-        leftBottomBt = Button(leftBottomFrame, text="Update", command=lambda: updateVictims(leftTopLb),  bg="gray", fg="black", padx=12, pady=7)
+        leftBottomBt = Button(leftBottomFrame, text="Refresh", command=lambda: updateVictims(leftTopLb),  bg="gray", fg="black", padx=12, pady=7)
 
         
         #left pack
@@ -204,7 +205,7 @@ class Application(Frame):
 
         rightBottomText = Text(rightBottomFrame, height=9, width=35)
 
-        rightBottomBt = Button(rightBottomFrame, text="Execute", command=lambda: execute(leftTopLb.get(ACTIVE), rightBottomText.get(1.0, END)), bg="gray", fg="black", padx=12, pady=7)
+        rightBottomBt = Button(rightBottomFrame, text="Run Command", command=lambda: execute(leftTopLb.get(ACTIVE), rightBottomText.get(1.0, END)), bg="gray", fg="black", padx=12, pady=7)
         
         #right pack       
                 
