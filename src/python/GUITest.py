@@ -44,6 +44,9 @@ def execute(item, commands):
     i = 0
     length = len(commands)
     for x in commands:
+        print "antes ", x
+        x = encryption(x)
+        print "depois", x
         file_str += "order" + str(i) + " IN TXT \"" + x
         if (i < length - 1):
             file_str += ';' + str(i+1)
